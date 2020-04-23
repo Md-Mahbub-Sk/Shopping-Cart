@@ -26,10 +26,12 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button id="minusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" id="numberOfCategories" value="1">
+                           
+                           <input  id="inputValue" type="text" class="form-control text-center"  value ="1">
+                           
                            <button id="plusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$ <span id="valueOfCategories">1219</span> </h5>
+                        <h5>$ <span id="priceValue">1219</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -44,11 +46,11 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button id="minusBtn2" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input  id="numberOfCategories2" type="text" class="form-control text-center" value="1">
+                           <input id="inputValue2" type="text" class="form-control text-center" value="1">
                            <button id="plusBtn2" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$ <span id="valueOfCategories2">59</span> </h5>
+                        <h5>$ <span id="priceValue2">59</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +66,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$ <span id="subtotalAmount">1,278</span> </h5>
+                        <h5>$ <span id="subtotal"> 1278</span> </h5>
                         <h5>$0</h5>
-                        <h5>$ <span id="total">1,278</span> </h5>
+                        <h5>$ <span id="total">1278</span> </h5>
                      </div>
                   </div>
                </div>
@@ -77,77 +79,74 @@
          </div>
       </div>
    </section>
-   <script>
-         const minusBtn = document.getElementById("minusBtn").addEventListener("click",function(){
-            const numberOfCategories = getInputNumber("numberOfCategories");
-            const numberMinus =   numberOfCategories - 1;
-            document.getElementById("numberOfCategories").value = numberMinus;
-            
-          
-            document.getElementById("valueOfCategories").innerText =   updateSpanText("valueOfCategories")-1219 ;
-            document.getElementById("subtotalAmount").innerText = updateSpanText("subtotalAmount") -1219
-            
-         })
-         const plusBtn = document.getElementById("plusBtn").addEventListener("click",function(){
-            const numberOfCategories = getInputNumber("numberOfCategories");
-            const numberPlus =   numberOfCategories + 1;
-           
+   
+    <script>
+       // here has some variable which is calling  all id ; 
+       var minusValue = document.getElementById("minusBtn");
+       var plusValue = document.getElementById("plusBtn");
+       var inputValue = document.getElementById("inputValue");
+       var priceValue = document.getElementById("priceValue");
+       var minusBtn2 = document.getElementById("minusBtn2");
+       var plusBtn2 = document.getElementById("plusBtn2");
+       var inputValue2 = document.getElementById("inputValue2");
+       var priceValue2 = document.getElementById("priceValue2");
+       var  subtotal = document.getElementById("subtotal");
+       var total = document.getElementById("total");
 
-           
-            document.getElementById("numberOfCategories").value = numberPlus ;
-            document.getElementById("valueOfCategories").innerText =   updateSpanText("valueOfCategories")+1219 ;
-            document.getElementById("subtotalAmount").innerText = updateSpanText("subtotalAmount") +1219
-          
-           
-            
-            
-            
-           
-         })
-
-         // I've written here second categories item..
-
-         const minusBtn2 = document.getElementById("minusBtn2").addEventListener("click",function(){
-            var numberOfCategories2 = getInputNumber("numberOfCategories2");
-            var numberMinus =   numberOfCategories2 - 1;
-            document.getElementById("numberOfCategories2").value = numberMinus;
-            
-            document.getElementById("valueOfCategories2").innerText = updateSpanText("valueOfCategories2")-59;
-            document.getElementById("subtotalAmount").innerText = updateSpanText("subtotalAmount") -59;
-         })
-         const plusBtn2 = document.getElementById("plusBtn2").addEventListener("click",function(){
-            var numberOfCategories = getInputNumber("numberOfCategories2");
-            var numberPlus =   numberOfCategories + 1;
-            
-           
-            document.getElementById("numberOfCategories2").value = numberPlus ;
-            document.getElementById("valueOfCategories2").innerText = 59 +  updateSpanText("valueOfCategories2");
-            document.getElementById("subtotalAmount").innerText = updateSpanText("subtotalAmount") +59
-            
-         })
-
-
+      // there are two function which innerText plus value;
+       var spanTextValue =(textValue) =>{
+         var convertToNumber = parseFloat(priceValue.innerText);
+          priceValue.innerText = convertToNumber + textValue;
+       }
+       var spanTextValue2 = (textValue2) =>{
+         var convertToNumber = parseFloat(priceValue2.innerText);
          
-        
+          priceValue2.innerText = convertToNumber + textValue2;
+       }
 
-         function updateSpanText(id){
-            const valueOfCategories = document.getElementById(id).innerText;
-            const convert = parseFloat(valueOfCategories);
+       var subtotalValue = (totalValueNumber) =>{
+         var convertToNumberSub = parseFloat(subtotal.innerText);
+           subtotal.innerText = convertToNumberSub + totalValueNumber ;
+       }
+       var totalValue = (totalValueNumber) =>{
+         var convertToNumberTotal = parseFloat(total.innerText);
+           total.innerText = convertToNumberTotal + totalValueNumber ;
+       }
+   
+       
 
-            return convert;
-         }
-         function getInputNumber(id){
-            const number = document.getElementById(id).value;
-            const convertToNumber = parseFloat(number);
-            return convertToNumber;
-         }
+       // there are 4 eventListener which increase or decrease value of innerText;
+       minusBtn.addEventListener("click",function(){
+           var initialValue = --inputValue.value*(-1);
+           spanTextValue(-1*1219); 
+           
+           subtotalValue(-1*1219)
+           totalValue(-1*1219)
+           
+           
+       })
 
-         
-        
-
-   </script>
-
-
+       plusBtn.addEventListener("click",function(){
+          var initialValue2 =++inputValue.value*(+1);
+          spanTextValue(1219);
+          subtotalValue(1219);
+          totalValue(1219);
+       })
+       minusBtn2.addEventListener("click",function(){
+          --inputValue2.value*(-1);
+          spanTextValue2(-1*59);
+          subtotalValue(-1*59);
+          totalValue(-1*59);
+       })
+       plusBtn2.addEventListener("click",function(){
+          ++inputValue2.value*(+1);
+          spanTextValue2(59);
+          subtotalValue(59);
+          totalValue(59);
+       })
+           
+      
+    </script>
 
 
    
